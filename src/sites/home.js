@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { Container, Typography, Divider } from "@material-ui/core";
 import StoresService from "../services/stores";
 import { makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
 import IconButton from "@material-ui/core/IconButton";
-import SearchIcon from "@material-ui/icons/Search";
+import LocationSearchingIcon from "@material-ui/icons/LocationSearching";
 import CardCarousel from "./card-carousel";
 
 const kiezList = [
@@ -64,6 +65,12 @@ const useStyles = makeStyles(theme => ({
     height: 30,
     margin: 4,
     backgroundColor: "white"
+  },
+  searchButton:{
+    marginTop: '10px',
+    display: "flex",
+    alignItems: "center",
+    width: 396
   }
 }));
 
@@ -77,7 +84,6 @@ export default function Home() {
     event.preventDefault();
     const StoreServiceInstance = new StoresService();
     StoreServiceInstance.getStores(kiez).then(setStoreData);
-    console.log(kiez, storeData);
   };
 
   const kiezFilter = kiezList.filter(locale =>
@@ -103,25 +109,31 @@ export default function Home() {
             placeholder="Placeholder text"
             inputProps={{ "aria-label": "Placeholder text" }}
           />
-          <IconButton
-            className={classes.iconButton}
-            aria-label="search"
-            onClick={event => fetchStoreData(event)}
-          >
-            <SearchIcon />
+          <IconButton className={classes.iconButton} aria-label="search">
+            <LocationSearchingIcon />
           </IconButton>
         </Paper>
-        {!!kiez && kiez!== kiezFilter[0] && !!kiezFilter.length &&(
-          <Paper 
+        <Button
+        className={classes.searchButton}
+          variant="contained"
+          color="primary"
+          onClick={event => fetchStoreData(event)}
+        >
+          Los Geht's
+        </Button>
+        {!!kiez && kiez !== kiezFilter[0] && !!kiezFilter.length && (
+          <Paper
             elevation={2}
             className={classes.root}
             style={{ flexDirection: "column", marginTop: "10px" }}
           >
             {kiezFilter.map(option => {
               return (
-                <Typography onClick={() => setKiez(option)}>
-                  {option}
-                </Typography>
+                <>
+                  <Typography display="block" onClick={() => setKiez(option)}>
+                    {option}
+                  </Typography>
+                </>
               );
             })}
           </Paper>
