@@ -106,7 +106,7 @@ export default function Home() {
             value={kiez}
             onChange={e => setKiez(e.target.value)}
             className={classes.input}
-            placeholder="Placeholder text"
+            placeholder="Ort?"
             inputProps={{ "aria-label": "Placeholder text" }}
           />
           <IconButton className={classes.iconButton} aria-label="search">
