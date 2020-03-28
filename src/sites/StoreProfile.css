@@ -4,6 +4,14 @@
 .MuiContainer-root.MuiContainer-maxWidthLg {
   overflow: hidden;
 }
+
+.store-profile {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 24px;
+}
+
 .sp-header-background {
   background-size: cover;
 
@@ -27,13 +35,11 @@
 }
 
 .sp__title {
-  color: #006735 !important;
-  margin-top: 1em!important;
+  color: #006735;
+  margin: 0;
   font-size: 1.5em;
-  margin-bottom: 0;
   text-align: center;
   font-weight: 500;
-  padding-top: 1em;
 }
 .sp__subtitle {
   font-size: 1.3em;
@@ -45,10 +51,8 @@
   color: #53514f;
 }
 .sp__description {
-  margin-top: 1.3em;
-  padding-bottom: 1em;
+  margin-top: 0;
   line-height: 1.4;
-
   color: #53514f;
 }
 
@@ -100,9 +104,9 @@
 }
 
 .sp_goods-good-price {
-  color: #006735!important;
+  color: #006735 !important;
   text-align: end;
-  font-weight: bold!important;
+  font-weight: bold !important;
 }
 
 .sp_goods-good-iconbar {
@@ -114,7 +118,7 @@
 }
 
 .sp__icons {
-  padding: 1em 0;
+  padding: 0.5em 0;
   font-size: 2em;
   text-align: center;
 }

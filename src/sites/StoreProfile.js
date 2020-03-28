@@ -16,7 +16,7 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { faGlobe } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
-import { Typography, Link } from "@material-ui/core";
+import { Link } from "@material-ui/core";
 
 const staticData = {
   id: "d290f1ee-6c54-4b01-90e6-d701748f0851",
@@ -138,7 +138,7 @@ const StoreProfile = props => {
             </a>
           </div>
           <div className="sp__content">
-            <div id="store-profile">
+            <div id="store-profile" className="store-profile">
               <h4 className="sp__title">{storeData.name?.de_DE}</h4>
               <h6 className="sp__subtitle">{storeData.shopOwnerName}</h6>
               <p className="sp__subtitle">{getAddress()}</p>
@@ -180,40 +180,41 @@ const StoreProfile = props => {
                   </a>
                 )}
               </div>
-
-              <p className="sp__description">
-                {shorten ? getShortenedText() : storeData.description.de_DE}
-                {isShortened() &&
-                  (shorten ? (
-                    <>
-                      <span>… </span>
-                      <Link
-                        href=""
-                        className="sp__readmore"
-                        onClick={e => {
-                          setShorten(false);
-                          e.preventDefault();
-                        }}
-                      >
-                        weiterlesen
-                      </Link>
-                    </>
-                  ) : (
-                    <>
-                      {" "}
-                      <Link
-                        href=""
-                        className="sp__readmore"
-                        onClick={e => {
-                          setShorten(true);
-                          e.preventDefault();
-                        }}
-                      >
-                        weniger
-                      </Link>
-                    </>
-                  ))}
-              </p>
+              <div className="sp__description">
+                <p>
+                  {shorten ? getShortenedText() : storeData.description.de_DE}
+                  {isShortened() &&
+                    (shorten ? (
+                      <>
+                        <span>… </span>
+                        <Link
+                          href=""
+                          className="sp__readmore"
+                          onClick={e => {
+                            setShorten(false);
+                            e.preventDefault();
+                          }}
+                        >
+                          weiterlesen
+                        </Link>
+                      </>
+                    ) : (
+                      <>
+                        {" "}
+                        <Link
+                          href=""
+                          className="sp__readmore"
+                          onClick={e => {
+                            setShorten(true);
+                            e.preventDefault();
+                          }}
+                        >
+                          weniger
+                        </Link>
+                      </>
+                    ))}
+                </p>
+              </div>
             </div>
 
             <div className="sp_goods">
@@ -225,14 +226,19 @@ const StoreProfile = props => {
                       style={{
                         backgroundImage: `url(${good.masterVariant?.images[0]?.url})`
                       }}
-                    ></div>
+                    />
                   </div>
                   <div className="sp_goods-good-info">
                     <h3 className="sp_goods-good-name">{good.name?.de_DE}</h3>
                     <p className="sp_goods-good-description">
                       {good.description?.de_DE}
                     </p>
-                    <p className="sp_goods-good-price">{new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(good.price.value)}</p>
+                    <p className="sp_goods-good-price">
+                      {new Intl.NumberFormat("de-DE", {
+                        style: "currency",
+                        currency: "EUR"
+                      }).format(good.price.value)}
+                    </p>
                   </div>
                   <div className="sp_goods-good-iconbar">
                     <span className="sp_goods-good-shopping-card">
