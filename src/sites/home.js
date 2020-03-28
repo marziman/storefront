@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, Typography, Divider } from "@material-ui/core";
+import { Container } from "@material-ui/core";
 import StoresService from "../services/stores";
 import { makeStyles } from "@material-ui/core/styles";
 import CardCarousel from "./card-carousel";
@@ -68,7 +68,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Home() {
-  const classes = useStyles();
   const [kiez, setKiez] = useState("");
   const [filteredLocations, setFilteredLocations] = useState([]);
 
@@ -80,15 +79,12 @@ export default function Home() {
   };
 
   return (
-    <Container maxWidth={"xs"}>
+    <Container maxWidth={"xs"} className="home_wrapper">
       <div className="home__search_panel">
-        <Typography variant="h5" className="home__align-right">
-          Sei ein Held zu Zeiten von Corona.
-          <br />
-          Rette den Laden bei Dir um die Ecke.
-          <br />
-          Hier kannst Du helfen.
-        </Typography>
+        <h5 className="home__intro">
+          Sei ein Held zu Zeiten von Corona. Rette den Laden bei Dir um die
+          Ecke. Hier kannst Du helfen.
+        </h5>
         <form
           className="home__form"
           onSubmit={e => {
@@ -128,6 +124,7 @@ export default function Home() {
               <ul className="home__selection-list">
                 {filteredLocations.map(option => (
                   <li
+                    key={option}
                     className="home__selection-list-item"
                     onClick={e => {
                       e.preventDefault();
@@ -143,7 +140,7 @@ export default function Home() {
             )}
           </div>
           <button
-            className="home__submit-btn"
+            className="btn-primary"
             type="submit"
             onClick={e => {
               //e.preventDefault();

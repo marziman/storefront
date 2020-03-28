@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
     minHeight: "100vh",
-    background: `white url(${BackgroundImg}) no-repeat`,
+    background: `white url(${BackgroundImg}) no-repeat bottom`,
     backgroundSize: "cover"
   },
   header: {
@@ -29,18 +29,18 @@ const useStyles = makeStyles(theme => ({
     alignItems: "center"
   },
   appBar: {
-    borderTop: `3px solid #006735`,
-    background: "white",
     fontWeight: "bold",
     zIndex: theme.zIndex.drawer + 1,
     boxShadow: "none",
-    padding: "10px 0"
+    backgroundColor: "transparent"
   },
   logo: {
-    textDecoration: "none"
+    textDecoration: "none",
+    display: "flex",
+    alignItems: "center"
   },
   logoSubtitle: {
-    color: "#888",
+    color: "#000",
     fontWeight: "normal"
   },
   logoSubtitleHighlight: {
@@ -48,14 +48,19 @@ const useStyles = makeStyles(theme => ({
     fontWeight: "bold"
   },
   toolbar: {
+    backgroundColor: "rgba(255, 255, 255, 0.9)",
+    color: "#006735",
     display: "flex",
+    justifyContent: "space-between",
     alignItems: "center",
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar
   },
   content: {
-    flexGrow: 1
+    display: "flex",
+    flexGrow: 1,
+    minHeight: "100%"
   },
   appname: {
     color: "black",
@@ -70,40 +75,29 @@ export default function App() {
     <Router>
       <ThemeProvider theme={theme}>
         <div className={classes.root}>
-          <AppBar
-            color={"transparent"}
-            position="fixed"
-            className={classes.appBar}
-          >
+          <AppBar position="fixed" className={classes.appBar}>
             <Toolbar className={classes.toolbar}>
-              <Container maxWidth="xs" className={classes.header}>
-                <FontAwesomeIcon icon={faBars} />
-                <Link to="/" className={classes.logo}>
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <img
-                      className="app__logo"
-                      src="/assets/images/logo.png"
-                      style={{
-                        width: "64px",
-                        height: "auto"
-                      }}
-                      alt="Main Logo"
-                    />
-                    <Typography variant="h6" className={classes.logoSubtitle}>
-                      small business{" "}
-                      <span className={classes.logoSubtitleHighlight}>
-                        hero
-                      </span>
-                    </Typography>
-                  </div>
-                  {/*  Placeholder text for logo*/}
-                </Link>
-                <FontAwesomeIcon icon={faShoppingCart} />
-              </Container>
+              {/*<FontAwesomeIcon icon={faBars} />*/}
+              <Link to="/" className={classes.logo}>
+                <img
+                  className="app__logo"
+                  src="/assets/images/logo.png"
+                  style={{
+                    width: "64px",
+                    height: "auto"
+                  }}
+                  alt="Main Logo"
+                />
+                <Typography variant="h6" className={classes.logoSubtitle}>
+                  small business{" "}
+                  <span className={classes.logoSubtitleHighlight}>hero</span>
+                </Typography>
+                {/*  Placeholder text for logo*/}
+              </Link>
+              <FontAwesomeIcon icon={faShoppingCart} />
             </Toolbar>
           </AppBar>
           <main className={classes.content}>
-            <div className={classes.toolbar} />
             <Container>
               {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
