@@ -64,11 +64,6 @@ const useStyles = makeStyles(theme => ({
   },
   iconButton: {
     padding: 10
-  },
-  divider: {
-    height: 30,
-    margin: 4,
-    backgroundColor: "white"
   }
 }));
 
@@ -85,90 +80,87 @@ export default function Home() {
   };
 
   return (
-    <>
-      <Container maxWidth={"xs"} className="home__container">
-        <Divider className={classes.divider} />
-        <div className="home__typo-wrapper"></div>
+    <Container maxWidth={"xs"}>
+      <div className="home__search_panel">
         <Typography variant="h5" className="home__align-right">
-        Sei ein Held zu Zeiten von Corona.<br />
-        Rette den Laden bei Dir um die Ecke.<br />
-        Hier kannst Du helfen.
+          Sei ein Held zu Zeiten von Corona.
+          <br />
+          Rette den Laden bei Dir um die Ecke.
+          <br />
+          Hier kannst Du helfen.
         </Typography>
-        <Divider className={classes.divider} />
-        <div className="home__search_panel">
-          <form
-            className="home__form"
-            onSubmit={e => {
-              e.preventDefault();
+        <form
+          className="home__form"
+          onSubmit={e => {
+            e.preventDefault();
+            fetchStoreData(kiez);
+          }}
+        >
+          <div className="home__search-wrapper">
+            <label htmlFor="home__search" className="home__search-label">
+              Ort
+            </label>
+            <FontAwesomeIcon
+              className="home__search-marker"
+              icon={faMapMarkerAlt}
+            />
+            <input
+              id="home__search"
+              className="home__search"
+              type="text"
+              autoComplete="off"
+              value={kiez}
+              placeholder="Wähle einen Ort…"
+              onChange={e => {
+                setKiez(e.target.value);
+                setFilteredLocations(
+                  e.target.value
+                    ? kiezList.filter(location =>
+                        location
+                          .toLowerCase()
+                          .match(e.target.value.toLowerCase())
+                      )
+                    : []
+                );
+              }}
+            />
+            {kiez && filteredLocations && filteredLocations.length > 0 && (
+              <ul className="home__selection-list">
+                {filteredLocations.map(option => (
+                  <li
+                    className="home__selection-list-item"
+                    onClick={e => {
+                      e.preventDefault();
+                      setKiez(option);
+                      setFilteredLocations([]);
+                      fetchStoreData(option);
+                    }}
+                  >
+                    {option}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+          <button
+            className="home__submit-btn"
+            type="submit"
+            onClick={e => {
+              //e.preventDefault();
               fetchStoreData(kiez);
             }}
           >
-            <div className="home__search-wrapper">
-              <label htmlFor="home__search" className="home__search-label">
-                Ort
-              </label>
-              <FontAwesomeIcon
-                className="home__search-marker"
-                icon={faMapMarkerAlt}
-              />
-              <input
-                id="home__search"
-                className="home__search"
-                type="text"
-                autoComplete="off"
-                value={kiez}
-                placeholder="Wähle einen Ort…"
-                onChange={e => {
-                  setKiez(e.target.value);
-                  setFilteredLocations(
-                    e.target.value
-                      ? kiezList.filter(location =>
-                          location
-                            .toLowerCase()
-                            .match(e.target.value.toLowerCase())
-                        )
-                      : []
-                  );
-                }}
-              />
-              {kiez && filteredLocations && filteredLocations.length > 0 && (
-                <ul className="home__selection-list">
-                  {filteredLocations.map(option => (
-                    <li
-                      className="home__selection-list-item"
-                      onClick={e => {
-                        e.preventDefault();
-                        setKiez(option);
-                        setFilteredLocations([]);
-                        fetchStoreData(option);
-                      }}
-                    >
-                      {option}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-            <button
-              className="home__submit-btn"
-              type="submit"
-              onClick={e => {
-                //e.preventDefault();
-                fetchStoreData(kiez);
-              }}
-            >
-              Suchen
-            </button>
-          </form>
-        </div>
-        {storeData.length > 0 ? (
-          <>
-            <CardCarousel storeData={storeData} />
-          </>
-        ) : (
-          kiez.length > 0 && `Keine Ergebnisse für Suche nach "${kiez}"`
-        )}
-      </Container>
-    </>
+            Suchen
+          </button>
+        </form>
+      </div>
+      {storeData.length > 0 ? (
+        <>
+          <CardCarousel storeData={storeData} />
+        </>
+      ) : (
+        kiez.length > 0 && `Keine Ergebnisse für Suche nach "${kiez}"`
+      )}
+    </Container>
   );
 }

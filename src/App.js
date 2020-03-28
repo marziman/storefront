@@ -14,12 +14,14 @@ import Samples from "./sites/samples";
 import StoreProfile from "./sites/StoreProfile";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
-import { Collapse } from "@material-ui/core";
+import BackgroundImg from "./assets/images/main-bg.jpg";
 
 const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
-    background: "white"
+    minHeight: "100vh",
+    background: `white url(${BackgroundImg}) no-repeat`,
+    backgroundSize: "cover"
   },
   header: {
     display: "flex",
@@ -28,7 +30,7 @@ const useStyles = makeStyles(theme => ({
   },
   appBar: {
     borderTop: `3px solid #006735`,
-    backgroundColor: "white",
+    background: "white",
     fontWeight: "bold",
     zIndex: theme.zIndex.drawer + 1,
     boxShadow: "none",
@@ -43,7 +45,7 @@ const useStyles = makeStyles(theme => ({
   },
   logoSubtitleHighlight: {
     color: "#006735",
-    fontWeight: 'bold'
+    fontWeight: "bold"
   },
   toolbar: {
     display: "flex",
@@ -53,7 +55,6 @@ const useStyles = makeStyles(theme => ({
     ...theme.mixins.toolbar
   },
   content: {
-    backgroundColor: "white",
     flexGrow: 1
   },
   appname: {
@@ -86,7 +87,8 @@ export default function App() {
                         width: "64px",
                         height: "auto"
                       }}
-                    ></img>
+                      alt="Main Logo"
+                    />
                     <Typography variant="h6" className={classes.logoSubtitle}>
                       small business{" "}
                       <span className={classes.logoSubtitleHighlight}>
@@ -100,10 +102,7 @@ export default function App() {
               </Container>
             </Toolbar>
           </AppBar>
-          <main
-            className={classes.content}
-            style={{ position: "relative", overflow: "hidden" }}
-          >
+          <main className={classes.content}>
             <div className={classes.toolbar} />
             <Container>
               {/* A <Switch> looks through its children <Route>s and
